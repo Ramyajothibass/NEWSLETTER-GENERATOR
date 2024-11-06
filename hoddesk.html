@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Template</title>
+    <style>
+        body {
+            font-family: Garamond,Serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* Fallback background color */
+        }
+
+        .container {
+            max-width: 595px; /* A4 width */
+            margin: 20px auto;
+            border: 2px solid #ccc;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: left;
+            padding: 20px;
+        }
+
+        h3 {
+            color: #c311da;
+        }
+
+        .content {
+            margin-top: 10px;
+        }
+
+        #download-container {
+            margin-top: 20px;
+        }
+    </style>
+    <!-- Include html2canvas library -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container" id="templateContainer">
+        <div id="date">January 10, 2024</div>
+        <h1 id="title">HOD'S DESK</h1>
+        <center><img id="bottom-image" alt="Bottom Image"></center>
+        <p id="content">
+            It gives me great pleasure to give my best wishes to “TECH VOICE”, a newsletter from the Department of Information Technology 
+            of Dr.M.G.R Educational and Research Institute. It is a technical platform to bring out the hidden talents of students and 
+            faculty. The students and faculties of the department are always proactive in taking initiatives in technical, cultural, and social events. 
+            I hope that this newsletter will serve the purpose of reflecting all activities of the department and it will inspire others to do their best. 
+            Wishing you all the best. I take this opportunity to congratulate the students' editorial team and our staff editors Dr. Dahlia Sam and 
+            Mr. A. Kameshwaran for their great effort to make this newsletter a reality. Also, I invite the readers of “TECH VOICE” for their contribution 
+            and suggestions for the forthcoming issues. I wish good luck to the entire team of editors and look forward to your kind patronage to our newsletter.
+        </p>
+    </div>
+    <div id="download-container">
+        <button onclick="downloadNewsletter()" id="downloadButton">Download Newsletter</button>
+    </div>
+    <script>
+        const selectedBackground = sessionStorage.getItem('selectedBackground') || 'bg1.jpg';
+        const uploadedImage = sessionStorage.getItem('uploadedImage') || '';
+        const container = document.querySelector('#templateContainer');
+        const bottomImage = document.getElementById('bottom-image');
+
+        container.style.backgroundImage = `url('${selectedBackground}')`;
+        bottomImage.src = uploadedImage;
+
+        function downloadNewsletter() {
+            html2canvas(container).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg');
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = imgData;
+                downloadLink.download = 'newsletter.jpg';
+
+                downloadLink.click();
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Corner</title>
+</head>
+<body>
+    
+  <h1>Event corner</h1>
+
+  <label for="dateInput">Date:</label>
+  <input type="text" id="dateInput"><br><br>
+
+  <label for="mainTitleInput">Main Title:</label>
+  <input type="text" id="mainTitleInput"><br><br>
+
+  <label for="subTitleInput">Sub Title:</label>
+  <input type="text" id="subTitleInput"><br><br>
+
+  <label for="imageInput1">Image 1:</label>
+  <input type="file" id="imageInput1"><br><br>
+
+  <label for="contentInput1">Content 1:</label><br>
+  <textarea id="contentInput1" rows="4" cols="50"></textarea><br><br>
+
+  <label for="imageInput2">Image 2:</label>
+  <input type="file" id="imageInput2"><br><br>
+
+  <label for="contentInput2">Content 2:</label><br>
+  <textarea id="contentInput2" rows="4" cols="50"></textarea><br><br>
+
+  <label for="imageInput3">Image 3:</label>
+  <input type="file" id="imageInput3"><br><br>
+
+  <label for="contentInput3">Content 3:</label><br>
+  <textarea id="contentInput3" rows="4" cols="50"></textarea><br><br>
+
+  <label for="backgroundSelect">Select Background:</label>
+  <select id="backgroundSelect" onchange="setBackgroundImage()">
+    <option>Select Background</option>
+    <option value="bg1.jpg">Background 1</option>
+    <option value="bg2.jpg">Background 2</option>
+    <option value="bg3.jpg">Background 3</option>
+    <option value="bg4.jpg">Background 4</option>
+    <option value="bg5.jpg">Background 5</option>
+    <option value="bg6.jpg">Background 6</option>
+  </select><br><br>
+
+  <button onclick="updateTemplate()">Next</button>
+
+  <script>
+    function updateTemplate() {
+        var date = document.getElementById("dateInput").value;
+        var mainTitle = document.getElementById("mainTitleInput").value;
+        var subTitle = document.getElementById("subTitleInput").value;
+
+        var imageInput1 = document.getElementById("imageInput1");
+        var contentInput1 = document.getElementById("contentInput1");
+        var imageInput2 = document.getElementById("imageInput2");
+        var contentInput2 = document.getElementById("contentInput2");
+        var imageInput3 = document.getElementById("imageInput3");
+        var contentInput3 = document.getElementById("contentInput3");
+
+        Promise.all([
+            getBase64(imageInput1.files[0]),
+            getBase64(imageInput2.files[0]),
+            getBase64(imageInput3.files[0])
+        ]).then(images => {
+            var userInput = {
+                date: date,
+                mainTitle: mainTitle,
+                subTitle: subTitle,
+                image1: images[0],
+                content1: contentInput1.value,
+                image2: images[1],
+                content2: contentInput2.value,
+                image3: images[2],
+                content3: contentInput3.value,
+                selectedBackground: document.getElementById('backgroundSelect').value
+            };
+
+            localStorage.setItem('userInput', JSON.stringify(userInput));
+
+            window.location.href = 'eventtemplate.html';
+        }).catch(error => {
+            console.error('Error loading image:', error);
+        });
+    }
+
+    function getBase64(file) {
+        return new Promise((resolve, reject) => {
+            if (!file) {
+                resolve(null);
+                return;
+            }
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = error => reject(error);
+        });
+    }
+
+    function setBackgroundImage() {
+        var selectedBackground = document.getElementById('backgroundSelect').value;
+        document.body.style.backgroundImage = `url('${selectedBackground}')`;
+    }
+   </script>
+
+</body>
+</html>

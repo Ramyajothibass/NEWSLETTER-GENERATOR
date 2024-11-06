@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template 1</title>
+    <style>
+        body {
+            font-family: Garamond,Serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            margin-top: 20px;
+            width: 6in;
+            height: 8in;
+            text-align: left;
+            border: 2px solid #ccc7c7;
+            padding: 20px;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #date {
+            margin-bottom: 20px;
+            float: left;
+        }
+
+        #middle-image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        #bottom-image {
+            width: 75%;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        #eventTitle {
+            margin-top: 20px;
+        }
+
+        #download-container {
+            margin-top: 20px;
+        }
+
+        #downloadButton {
+            cursor: pointer;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="contentContainer">
+        <div id="date"></div>
+        <img src="logo1.jpg" alt="Middle Image" id="middle-image">
+        <h3 id="middle-title"><center>FACULTY OF ENGINEERING AND TECHNOLOGY</center></h3>
+        <h2><center>DEPARTMENT OF INFORMATION TECHNOLOGY</center></h2>
+        
+        <center><img src="" alt="Bottom Image" id="bottom-image"></center>
+        <h1 id="eventTitle"><center></center></h1>
+    </div>
+
+    <div id="download-container">
+        <button onclick="downloadNewsletter()" id="downloadButton">Download Newsletter</button>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        window.onload = function () {
+            const enteredDate = sessionStorage.getItem('newsletter-date') || '';
+            document.getElementById('date').textContent = enteredDate;
+
+            const selectedBackground = sessionStorage.getItem('selectedBackground') || 'bg1.jpg';
+            const uploadedImage = sessionStorage.getItem('uploadedImage') || '';
+            const eventTitle = sessionStorage.getItem('eventTitle') || 'Event Title';
+
+            document.querySelector('.container').style.backgroundImage = `url('${selectedBackground}')`;
+
+            const bottomImage = document.getElementById('bottom-image');
+            bottomImage.src = uploadedImage;
+            bottomImage.onload = function() {
+                document.getElementById('eventTitle').innerHTML = `<center>${eventTitle}</center>`;
+            };
+        }
+
+        function downloadNewsletter() {
+            const container = document.getElementById('contentContainer');
+
+            html2canvas(container).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg');
+
+                // Create a link element
+                const link = document.createElement('a');
+                link.href = imgData;
+                link.download = 'newsletter.jpg';
+                document.body.appendChild(link);
+
+                // Trigger the download
+                link.click();
+
+                // Remove the link from the body
+                document.body.removeChild(link);
+            });
+        }
+    </script>
+</body>
+</html>

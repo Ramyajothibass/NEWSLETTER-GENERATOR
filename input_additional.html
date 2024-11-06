@@ -1,0 +1,100 @@
+<!-- input_additional.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional Content</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        textarea {
+            width: 80%;
+            height: 200px;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Additional Content</h1><!-- input_additional.html -->
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Additional Content Input</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                margin: 20px;
+                padding: 0;
+                background-color: #f5f5f5;
+            }
+    
+            textarea {
+                width: 80%;
+                height: 200px;
+                padding: 10px;
+                margin-bottom: 15px;
+                box-sizing: border-box;
+                resize: vertical;
+            }
+    
+            button {
+                padding: 10px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Enter Additional Content</h1>
+        <textarea id="additionalContent" placeholder="Enter additional content"></textarea>
+        <br>
+        <button onclick="navigateToTemplate()">Next</button>
+    
+        <script>
+            function navigateToTemplate() {
+                const additionalContent = document.getElementById('additionalContent').value.trim();
+                sessionStorage.setItem('additionalContent', additionalContent);
+                window.location.href = 'template_additional.html';
+            }
+        </script>
+    </body>
+    </html>
+    
+    <textarea id="additionalContent" placeholder="Enter additional content"></textarea>
+    <br>
+    <button onclick="navigateToTemplate()">Next</button>
+
+    <script>
+        function navigateToTemplate() {
+            const additionalContent = document.getElementById('additionalContent').value.trim();
+            sessionStorage.setItem('additionalContent', additionalContent);
+            window.location.href = 'check.html';
+        }
+    </script>
+</body>
+</html>

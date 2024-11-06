@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision and Mission </title>
+    <style>
+        body {
+            font-family: Garamond,Serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* Fallback background color */
+        }
+
+        .container {
+            max-width: 595px; /* A4 width */
+            margin: 20px auto;
+            border: 2px solid #ccc;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            text-align: left;
+            padding: 20px;
+        }
+
+        h3 {
+            color: #c311da;
+        }
+
+        .content {
+            margin-top: 10px;
+        }
+    </style>
+    <!-- Include html2canvas library -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container" style="background-image: url('{{selectedBackground}}');">
+        <h3>VISION</h3>
+        <div class="content">
+            <h6>To create technology proficient and ethically enriched IT professionals through holistic and state of art
+curriculum.</h6>
+        </div>
+
+        <h3>MISION</h3>
+        <div class="content">
+            <h6><ul><li>update the IT skills of students and faculty adapting recent technology developments in the
+                    curriculum as recommended by academicians, industry experts and alumni.</li> 
+                    <li>To establish equipped laboratories to present excellent education in the conventional and modern
+                             vicinity of Information Technology.</li> 
+                    <li>To create responsible IT professionals with ethical values and social responsibilities. To stimulate
+                          entrepreneurial mind-set among the students and enhance competency through regular industrial
+                         exposure.</li> 
+                    <li>To utilize the family of alma mater through strong interaction and networking making them
+                     instrumental for development of academic and industrial linkage.</li> 
+                </ul>
+            </h6>
+        </div>
+
+        <h3>PROGRAM EDUCATIONAL OBJECTIVES[PEO'S]</h3>
+        <div class="content">
+            <h6>Graduates will be able to:
+                <ul>
+                    <p>➢  PEO 1: Excel by taking up key roles in IT and related industries, Government organizations and academia
+                        through strong leadership skills.</p>
+                    <p>➢  PEO 2: Undertake higher studies and/or research in the field of Information Technology, management or other
+                            related domains.</p>
+                    <p>➢ PEO 3: Develop innovative products and implement novel solutions to real world problems in IT and related
+                                interdisciplinary areas.</p>
+                    <p>➢ PEO 4: Understand the societal impact of IT services and use their skills in an ethical, responsible and
+                                    professional manner.</p>
+                    <p>➢ PEO 5: Be updated with continuous learning and have a global perspective, so as to remain current in their
+                                        profession while meeting the needs of the industry and nation at large.</p>
+                </ul>
+            </h6>
+        </div>
+
+        <h3>PROGRAM SPECIFIC OUTCOMES[PSO'S]</h3>
+        <div class="content">
+           <h6> Ability to augment the understanding of broad themes of STEM using Information Technology.
+           <ul>
+            <p> ➢ Ability to analyse, design, develop and implement sustained IT solutions as a team to improve the
+            productivity of the organization with social and economic constraints.</p>
+            <p>➢ Ability to apply ethical decision making, use IT industry recognized best practices and standards in the
+            development, implementation and management of IT system integrating multiple domains.</p>
+            <p>➢ Ability to understand and update current trends in web technology, distributed infrastructure, data
+            management, software engineering, system engineering and secured applications.Content for Title 4 goes here.</p></ul></h6>
+        </div>
+    </div>
+    <div id="download-container">
+        <button onclick="downloadNewsletter()" id="downloadButton">Download Newsletter</button>
+    </div>
+    <script>
+        const selectedBackground = sessionStorage.getItem('selectedBackground') || 'bg1.jpg';
+         document.querySelector('.container').style.backgroundImage = `url('${selectedBackground}')`;
+
+         function downloadNewsletter() {
+            // Corrected container selector to use id
+            const container = document.querySelector('.container');
+
+            html2canvas(container).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg');
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = imgData;
+                downloadLink.download = 'newsletter.jpg';
+
+                downloadLink.click();
+            });
+        }
+    </script>
+    
+</body>
+</html>

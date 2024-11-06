@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Output</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* Fallback background color */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+            border: 2px solid #ccc;
+            padding: 20px;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #date {
+            float: left;
+        }
+
+        #mainTitle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #subTitle {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .content {
+            margin-top: 10px;
+            border-top: 1px solid #ffffff;
+            padding-top: 10px;
+            min-height: 250px;
+        }
+
+        .image-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 200px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="inputPage">
+        <label for="dateInput">Date:</label><br>
+        <input type="text" id="dateInput"><br><br>
+
+        <label for="mainTitleInput">Main Title:</label><br>
+        <input type="text" id="mainTitleInput"><br><br>
+
+        <label for="subTitleInput">Sub Title:</label><br>
+        <input type="text" id="subTitleInput"><br><br>
+
+        <label for="imageInput1">Image 1:</label><br>
+        <input type="file" id="imageInput1"><br><br>
+
+        <label for="contentInput1">Content 1:</label><br>
+        <textarea id="contentInput1" rows="4" cols="50"></textarea><br><br>
+
+        <label for="imageInput2">Image 2:</label><br>
+        <input type="file" id="imageInput2"><br><br>
+
+        <label for="contentInput2">Content 2:</label><br>
+        <textarea id="contentInput2" rows="4" cols="50"></textarea><br><br>
+
+        <label for="imageInput3">Image 3:</label><br>
+        <input type="file" id="imageInput3"><br><br>
+
+        <label for="contentInput3">Content 3:</label><br>
+        <textarea id="contentInput3" rows="4" cols="50"></textarea><br><br>
+
+        <button onclick="updateTemplate()">Next</button>
+    </div>
+
+    <div class="container" id="templateContainer" style="display: none;">
+
+        <div id="date">Default Date</div>
+
+        <h1 id="mainTitle">Default Main Title</h1>
+
+        <h2 id="subTitle">Default Sub Title</h2>
+        <div class="content" id="content">
+            <!-- Content will be dynamically updated here -->
+            <div class="image-container" id="image1Container">
+                <img id="image1" src="#" alt="Image 1">
+                <div id="content1">Content for Image 1</div>
+            </div>
+            <div class="image-container" id="image2Container">
+                <img id="image2" src="#" alt="Image 2">
+                <div id="content2">Content for Image 2</div>
+            </div>
+            <div class="image-container" id="image3Container">
+                <img id="image3" src="#" alt="Image 3">
+                <div id="content3">Content for Image 3</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="download-container">
+        <button onclick="downloadTemplate()" id="downloadButton">Download Template</button>
+    </div>
+
+    <script>
+        function updateTemplate() {
+            var date = document.getElementById("dateInput").value;
+            var mainTitle = document.getElementById("mainTitleInput").value;
+            var subTitle = document.getElementById("subTitleInput").value;
+
+            var imageInput1 = document.getElementById("imageInput1");
+            var contentInput1 = document.getElementById("contentInput1");
+            var imageInput2 = document.getElementById("imageInput2");
+            var contentInput2 = document.getElementById("contentInput2");
+            var imageInput3 = document.getElementById("imageInput3");
+            var contentInput3 = document.getElementById("contentInput3");
+
+            document.getElementById("date").textContent = date;
+            document.getElementById("mainTitle").textContent = mainTitle;
+            document.getElementById("subTitle").textContent = subTitle;
+
+            // Update content for image 1
+            if (imageInput1.files && imageInput1.files[0]) {
+                var reader1 = new FileReader();
+                reader1.onload = function (e) {
+                    document.getElementById("image1").src = e.target.result;
+                }
+                reader1.readAsDataURL(imageInput1.files[0]);
+                document.getElementById("content1").textContent = contentInput1.value;
+            }
+
+            // Update content for image 2
+            if (imageInput2.files && imageInput2.files[0]) {
+                var reader2 = new FileReader();
+                reader2.onload = function (e) {
+                    document.getElementById("image2").src = e.target.result;
+                }
+                reader2.readAsDataURL(imageInput2.files[0]);
+                document.getElementById("content2").textContent = contentInput2.value;
+            }
+
+            // Update content for image 3
+            if (imageInput3.files && imageInput3.files[0]) {
+                var reader3 = new FileReader();
+                reader3.onload = function (e) {
+                    document.getElementById("image3").src = e.target.result;
+                }
+                reader3.readAsDataURL(imageInput3.files[0]);
+                document.getElementById("content3").textContent = contentInput3.value;
+            }
+
+            document.getElementById("inputPage").style.display = "none";
+            document.getElementById("templateContainer").style.display = "block";
+        }
+
+        function downloadTemplate() {
+            var container = document.querySelector('#templateContainer');
+
+            html2canvas(container).then(canvas => {
+                var imgData = canvas.toDataURL('image/jpeg');
+
+                var downloadLink = document.createElement('a');
+                downloadLink.href = imgData;
+                downloadLink.download = 'template_image.jpg';
+
+                downloadLink.click();
+            });
+        }
+    </script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</body>
+</html>

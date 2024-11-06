@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>research and innovation</title>
+    <style>
+        body {
+            font-family: Garamond,Serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* Fallback background color */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+            border: 2px solid #ccc;
+            padding: 20px;
+            box-sizing: border-box;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #date {
+            float: left;
+        }
+
+        #mainTitle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #subTitle {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #content {
+            margin-top: 10px;
+            border-top: 1px solid #ffffff;
+            padding-top: 10px;
+            min-height: 250px;
+        }
+    </style>
+    <!-- Include html2canvas library -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container" id="templateContainer">
+
+        <div id="date">January 10, 2024</div>
+
+        <h1 id="mainTitle">Main Title</h1>
+
+        <h2 id="subTitle">Sub Title</h2>
+        <div id="content">
+            <!-- Content will be dynamically updated here -->
+            <ul id="pointList"></ul>
+        </div>
+    </div>
+
+    <div id="download-container">
+        <button onclick="downloadTemplate()" id="downloadButton">Download Template</button>
+    </div>
+
+    <script>
+        // Retrieve user input from sessionStorage
+        const userInput = JSON.parse(sessionStorage.getItem('userInput')) || {};
+        const selectedBackground = sessionStorage.getItem('selectedBackground') || 'bg1.jpg';
+
+        // Update the template with user input
+        document.getElementById('date').textContent = userInput.date || 'Default Date';
+        document.getElementById('mainTitle').textContent = userInput.mainTitle || 'Default Main Title';
+        document.getElementById('subTitle').textContent = userInput.subTitle || 'Default Sub Title';
+
+        const pointList = document.getElementById('pointList');
+        // Clear previous content
+        pointList.innerHTML = '';
+        userInput.content.forEach(point => {
+            const li = document.createElement('li');
+            li.textContent = point;
+            pointList.appendChild(li);
+        });
+
+        // Set background image dynamically
+        document.querySelector('.container').style.backgroundImage = `url('${selectedBackground}')`;
+
+        function downloadTemplate() {
+            const container = document.querySelector('#templateContainer');
+
+            html2canvas(container).then(canvas => {
+                const imgData = canvas.toDataURL('image/jpeg');
+
+                const downloadLink = document.createElement('a');
+                downloadLink.href = imgData;
+                downloadLink.download = 'template_image.jpg';
+
+                downloadLink.click();
+            });
+        }
+    </script>
+</body>
+</html>
